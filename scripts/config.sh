@@ -45,7 +45,7 @@ MODEL_REVISION="${MODEL_REVISION:-}"
 # export HF_TOKEN or `hf auth login` with that account. It only fits the nvfp4 checkpoint at the revision it was made from. The model has had safety
 # refusals removed. Its author's own checks (refusal32 32/32) ran on the vLLM/TensorFold recipe, not on this build: validate it here (tools/exact.py,
 # tools/needle.py) before relying on it.
-ABLIT="${ABLIT:-0}"
+ABLIT="${ABLIT:-1}"
 [[ "$ABLIT" =~ ^[01]$ ]] || { echo "ABLIT must be 0 or 1, not $ABLIT" >&2; exit 1; }
 ABLIT_ID=drowzeys/keys-Qwen3.8-Flash-Next-NVFP4-FP4-QAD-house-qsa-L3-47
 ABLIT_REVISION="${ABLIT_REVISION:-c44f5b92ee3d307b82aab1c55f4cc4ae1d440344}"
@@ -108,7 +108,11 @@ prebuilt_image() {
 }
 CONTAINER_NAME="${CONTAINER_NAME:-qwen38-flash-next-tf}"
 
-SERVED_NAME="${SERVED_NAME:-Qwen3.8-Flash-Next}"
+if [[ "$ABLIT" == 1 ]]; then
+  SERVED_NAME="${SERVED_NAME:-Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold-Uncensored}"
+else
+  SERVED_NAME="${SERVED_NAME:-Qwen3.8-Flash-Next}"
+fi
 HOST="${HOST:-0.0.0.0}"
 PORT="${PORT:-8888}"
 # Native window 262,144; the Flash Next CUDA engine of TensorFold 1.2.7 has no YaRN extension (it refuses a legacy rope_scaling), so this is also the maximum.

@@ -16,7 +16,7 @@
 #   files    CHECKPOINT (nvfp4 | int4), MODEL_ID, MODEL_REVISION, HF_CACHE, KERNEL_CACHE, STATE_DIR
 #   vision   VISION (0|1), VISION_URLS (0|1, public https media), PDF (0|1, PDF document parts through the engine's PDFium),
 #            VIDEO (0|1, video parts; puts the image's libtfvideo.so, FFmpeg 9.0.2, on the loader's path)
-#   ablit    ABLIT=1 serves NVIDIA's FP4 with the Keys house-qsa abliteration overlay (gated; needs an HF token); 0 is stock (default)
+#   ablit    ABLIT=1 (default) serves NVIDIA's FP4 with the Keys house-qsa overlay (gated; needs an HF token); 0 is stock
 #   image    IMAGE, TF_REPO, TF_REF, ZIG_VERSION, BASE_IMAGE, GHCR_IMAGE, CONTAINER_NAME
 #   setup    PREPARE (auto | 1 | 0), PULL, FOREGROUND=1, WAIT_TIMEOUT, DRY_RUN=1, MEM_NEED_GIB, MEM_CHECK=0
 #   engine   every TENSORFOLD_* and TF_FLASHNEXT_* variable goes into the container
